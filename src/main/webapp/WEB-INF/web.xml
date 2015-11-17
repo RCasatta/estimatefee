@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" version="2.5">
+    <servlet>
+        <servlet-name>CollectData</servlet-name>
+        <servlet-class>it.casatta.estimatefee.CollectData</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>JsonData</servlet-name>
+        <servlet-class>it.casatta.estimatefee.JsonData</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Last</servlet-name>
+        <servlet-class>it.casatta.estimatefee.Last</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DayStatsBuilder</servlet-name>
+        <servlet-class>it.casatta.estimatefee.DayStatsBuilder</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>DayStatsBuilder</servlet-name>
+        <url-pattern>/daystatsbuilder</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Last</servlet-name>
+        <url-pattern>/last</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>JsonData</servlet-name>
+        <url-pattern>/jsondata</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CollectData</servlet-name>
+        <url-pattern>/collectdata</url-pattern>
+    </servlet-mapping>
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
+    <filter>
+        <filter-name>ObjectifyFilter</filter-name>
+        <filter-class>com.googlecode.objectify.ObjectifyFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>ObjectifyFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+</web-app>

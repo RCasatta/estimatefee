@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bitcoin Estimate Fee</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet"
+          href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript">
+      google.load("visualization", "1.0", {packages:["corechart"]});
+
+      // Set a callback to run when the Google Visualization API is loaded.
+    google.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+        var jsonData = $.ajax({
+            url: "/jsondata",
+            dataType:"json"
+          }).success( function(data, textStatus, jqXHR) {
+
+            // Create our data table out of JSON data loaded from server.
+            var graphdata = new google.visualization.DataTable(data.fiveminutes.total);
+            var options = {
+              title: 'Bitcoin Estimated Fee History (last 3 days)',
+              vAxis: {minValue: 0},
+            };
+            var chart = new google.visualization.AreaChart(document.getElementById('total_div'));
+            chart.draw(graphdata, options);
+
+            // Create our data table out of JSON data loaded from server.
+            var graphdata2 = new google.visualization.DataTable(data.days);
+            var options2 = {
+              title: 'Bitcoin Estimated Fee History (day average)',
+              vAxis: {minValue: 0},
+            };
+            var chart2 = new google.visualization.AreaChart(document.getElementById('days_div'));
+            chart2.draw(graphdata2, options2);
+
+            var lastfee = data.fiveminutes.last;
+            var date = new Date(lastfee.timestamp);
+            $('#timestamp').html(date.toLocaleDateString() + " - " + date.toLocaleTimeString() ) ;
+            $('#block1').html(lastfee.block1 ) ;
+            $('#block2').html(lastfee.block2 ) ;
+            $('#block6').html(lastfee.block6 ) ;
+            $('#block12').html(lastfee.block12 ) ;
+            $('#block25').html(lastfee.block25 ) ;
+           }
+          );
+
+     }
+     </script>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-64322985-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</head>
+
+<body role="document" style="padding-top: 70px;">
+
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Bitcoin Estimate Fee</a>
+        </div>
+    </div>
+</div>
+
+<div class="container theme-showcase" role="main">
+    <div class="jumbotron">
+        <div class="row">
+            <div class="col-lg-12">
+                <div id="container">
+                    <h2><a href="http://estimatefee.appspot.com/last">Last</a> estimated fee @ <span id="timestamp"><small>loading...</small></span></h2>
+                    <ul>
+                        <li><span id="block1"><small>loading...</small></span>&nbsp;&nbsp;1 block</li>
+                        <li><span id="block2"><small>loading...</small></span>&nbsp;&nbsp;2 blocks</li>
+                        <li><span id="block6"><small>loading...</small></span>&nbsp;&nbsp;6 blocks</li>
+                        <li><span id="block12"><small>loading...</small></span>&nbsp;12 blocks</li>
+                        <li><span id="block25"><small>loading...</small></span>&nbsp;25 blocks</li>
+                    </ul>
+                    <div>
+                        Data collected from bitcoin core, for example:
+                        <pre>bitcoin-cli estimatefee 1</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="alert alert-info" role="alert">On 30 October 2015 bitcoind version updated from 0.10.2 to 0.11.1</div>
+
+
+    <div id="total_div" style="width: 100%; height: 500px;"></div>
+
+    <div id="days_div" style="width: 100%; height: 500px;"></div>
+
+
+    <footer>
+        <div class="container">
+            <p>By <a href="https://twitter.com/RCasatta">@RCasatta</a></p>
+        </div>
+    </footer>
+</div>
+</body>
+</html>
