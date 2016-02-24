@@ -38,6 +38,7 @@ public class JsonData extends HttpServlet {
             ////////FIVE MINUTES STEPS
             String result;
             Object cached=null;
+            Object nullObject=null;
             Long lastTimestamp = (Long) memcache.get("lastTimestamp");
             if(lastTimestamp!=null)
                 cached = memcache.get(lastTimestamp);
@@ -104,23 +105,23 @@ public class JsonData extends HttpServlet {
                     totalCArr.put(totalV0);
 
                     JSONObject totalV1 = new JSONObject();
-                    totalV1.put("v", Math.max( estimatedFee.getEstimateFee1Block() , 0) );
+                    totalV1.put("v", estimatedFee.getEstimateFee1Block()>0 ?  estimatedFee.getEstimateFee1Block() : nullObject );
                     totalCArr.put(totalV1);
 
                     JSONObject totalV2 = new JSONObject();
-                    totalV2.put("v", Math.max( estimatedFee.getEstimateFee2Block() , 0));
+                    totalV2.put("v", estimatedFee.getEstimateFee2Block()>0 ?  estimatedFee.getEstimateFee2Block() : nullObject );
                     totalCArr.put(totalV2);
 
                     JSONObject totalV3 = new JSONObject();
-                    totalV3.put("v", Math.max( estimatedFee.getEstimateFee6Block() , 0));
+                    totalV3.put("v", estimatedFee.getEstimateFee6Block()>0 ?  estimatedFee.getEstimateFee6Block() : nullObject );
                     totalCArr.put(totalV3);
 
                     JSONObject totalV4 = new JSONObject();
-                    totalV4.put("v", Math.max(estimatedFee.getEstimateFee12Block() , 0));
+                    totalV4.put("v", estimatedFee.getEstimateFee12Block()>0 ?  estimatedFee.getEstimateFee12Block() : nullObject );
                     totalCArr.put(totalV4);
 
                     JSONObject totalV5 = new JSONObject();
-                    totalV5.put("v", Math.max( estimatedFee.getEstimateFee25Block() , 0));
+                    totalV5.put("v", estimatedFee.getEstimateFee25Block()>0 ?  estimatedFee.getEstimateFee25Block() : nullObject );
                     totalCArr.put(totalV5);
 
                     totalC.put("c", totalCArr);

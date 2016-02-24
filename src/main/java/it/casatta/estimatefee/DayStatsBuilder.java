@@ -75,11 +75,16 @@ public class DayStatsBuilder extends HttpServlet {
                 }
 
                 final EstimatedFeeDay estimatedFeeDay = new EstimatedFeeDay();
-                estimatedFeeDay.setEstimateFee1Block( b1 / c1);
-                estimatedFeeDay.setEstimateFee2Block( b2 / c2);
-                estimatedFeeDay.setEstimateFee6Block( b6 / c6);
-                estimatedFeeDay.setEstimateFee12Block(b12 / c12);
-                estimatedFeeDay.setEstimateFee25Block(b25 / c25);
+                if(c1>0)
+                    estimatedFeeDay.setEstimateFee1Block( b1 / c1);
+                if(c2>0)
+                    estimatedFeeDay.setEstimateFee2Block( b2 / c2);
+                if(c6>0)
+                    estimatedFeeDay.setEstimateFee6Block( b6 / c6);
+                if(c12>0)
+                    estimatedFeeDay.setEstimateFee12Block(b12 / c12);
+                if(c25>0)
+                    estimatedFeeDay.setEstimateFee25Block(b25 / c25);
                 estimatedFeeDay.setDay(day);
 
                 resp.setContentType("text/plain");
