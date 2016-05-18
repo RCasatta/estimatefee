@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -27,6 +28,7 @@ public class JsonData extends HttpServlet {
     private final static SimpleDateFormat dayFormat = new SimpleDateFormat("yyyyMMdd");
     private final static SimpleDateFormat hourFormat = new SimpleDateFormat("yyyyMMddHH");
     private final static SimpleDateFormat minuteFormat = new SimpleDateFormat("yyyyMMddHHmm");
+    private final static SimpleDateFormat minuteFormatSep = new SimpleDateFormat("yyyy,MM,dd,HH,mm");
 
     private MemcacheService memcache = MemcacheServiceFactory.getMemcacheService();
 
@@ -60,10 +62,10 @@ public class JsonData extends HttpServlet {
                 totalCol0.put("label", "date");
                 totalCol0.put("type", "datetime");
 
-                JSONObject totalCol1 = new JSONObject();
+                /*JSONObject totalCol1 = new JSONObject();
                 totalCol1.put("id", "A1");
                 totalCol1.put("label", "1 block");
-                totalCol1.put("type", "number");
+                totalCol1.put("type", "number");*/
 
                 JSONObject totalCol2 = new JSONObject();
                 totalCol2.put("id", "A2");
@@ -86,7 +88,7 @@ public class JsonData extends HttpServlet {
                 totalCol5.put("type", "number");
 
                 totalCols.put(totalCol0);
-                totalCols.put(totalCol1);
+                //totalCols.put(totalCol1);
                 totalCols.put(totalCol2);
                 totalCols.put(totalCol3);
                 totalCols.put(totalCol4);
@@ -95,8 +97,8 @@ public class JsonData extends HttpServlet {
                 total.put("cols", totalCols);
 
                 EstimatedFee last=null;
-                for (EstimatedFee estimatedFee : estimatedFees) {
-                    String jDate = String.format("Date(%d)", estimatedFee.getTimestamp());
+                for (final EstimatedFee estimatedFee : estimatedFees) {
+                    final String jDate = String.format("Date(%s)",minuteFormatSep.format(new Date(estimatedFee.getTimestamp()) ) );
 
                     JSONObject totalC = new JSONObject();
                     JSONArray totalCArr = new JSONArray();
@@ -104,24 +106,24 @@ public class JsonData extends HttpServlet {
                     totalV0.put("v", jDate);
                     totalCArr.put(totalV0);
 
-                    JSONObject totalV1 = new JSONObject();
+                    /*JSONObject totalV1 = new JSONObject();
                     totalV1.put("v", estimatedFee.getEstimateFee1Block()>0 ?  estimatedFee.getEstimateFee1Block() : nullObject );
-                    totalCArr.put(totalV1);
+                    totalCArr.put(totalV1);*/
 
                     JSONObject totalV2 = new JSONObject();
-                    totalV2.put("v", estimatedFee.getEstimateFee2Block()>0 ?  estimatedFee.getEstimateFee2Block() : nullObject );
+                    totalV2.put("v", estimatedFee.getEstimateFee2Block()>0 ?  estimatedFee.getEstimateFee2Block() : "" );
                     totalCArr.put(totalV2);
 
                     JSONObject totalV3 = new JSONObject();
-                    totalV3.put("v", estimatedFee.getEstimateFee6Block()>0 ?  estimatedFee.getEstimateFee6Block() : nullObject );
+                    totalV3.put("v", estimatedFee.getEstimateFee6Block()>0 ?  estimatedFee.getEstimateFee6Block() : "" );
                     totalCArr.put(totalV3);
 
                     JSONObject totalV4 = new JSONObject();
-                    totalV4.put("v", estimatedFee.getEstimateFee12Block()>0 ?  estimatedFee.getEstimateFee12Block() : nullObject );
+                    totalV4.put("v", estimatedFee.getEstimateFee12Block()>0 ?  estimatedFee.getEstimateFee12Block() : "" );
                     totalCArr.put(totalV4);
 
                     JSONObject totalV5 = new JSONObject();
-                    totalV5.put("v", estimatedFee.getEstimateFee25Block()>0 ?  estimatedFee.getEstimateFee25Block() : nullObject );
+                    totalV5.put("v", estimatedFee.getEstimateFee25Block()>0 ?  estimatedFee.getEstimateFee25Block() : "" );
                     totalCArr.put(totalV5);
 
                     totalC.put("c", totalCArr);
@@ -133,8 +135,8 @@ public class JsonData extends HttpServlet {
                 dataTable.put("total", total);
 
                 JSONObject object = new JSONObject();
-                object.put("timestamp", last.getTimestamp());
-                object.put("block1", last.getEstimateFee1Block());
+                object.put("timestamp", (long) last.getTimestamp());
+                /*object.put("block1", last.getEstimateFee1Block());*/
                 object.put("block2", last.getEstimateFee2Block());
                 object.put("block6", last.getEstimateFee6Block());
                 object.put("block12", last.getEstimateFee12Block());
