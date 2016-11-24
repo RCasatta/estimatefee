@@ -23,7 +23,8 @@
             var graphdata = new google.visualization.DataTable(data.fiveminutes.total);
             var options = {
               title: 'Bitcoin Estimated Fee History (last 3 days)',
-              vAxis: {minValue: 0},
+              vAxis: {minValue: 0,
+                      title: 'mBTC'}
             };
             var chart = new google.visualization.AreaChart(document.getElementById('total_div'));
             chart.draw(graphdata, options);
@@ -32,7 +33,10 @@
             var graphdata2 = new google.visualization.DataTable(data.days);
             var options2 = {
               title: 'Bitcoin Estimated Fee History (day average)',
-              vAxis: {minValue: 0},
+              vAxis: {minValue: 0,
+                      title: 'mBTC'
+                      },
+
             };
             var chart2 = new google.visualization.AreaChart(document.getElementById('days_div'));
             chart2.draw(graphdata2, options2);
@@ -100,7 +104,6 @@
                 <div id="container">
                     <h2><a href="http://estimatefee.appspot.com/last">Last</a> estimated fee @ <span id="timestamp"><small>loading...</small></span></h2>
                     <ul>
-                        <li><span id="block1"><small>loading...</small></span>&nbsp;&nbsp;1 block</li>
                         <li><span id="block2"><small>loading...</small></span>&nbsp;&nbsp;2 blocks</li>
                         <li><span id="block6"><small>loading...</small></span>&nbsp;&nbsp;6 blocks</li>
                         <li><span id="block12"><small>loading...</small></span>&nbsp;12 blocks</li>
@@ -109,6 +112,9 @@
                     <div>
                         Data collected from bitcoin core, for example:
                         <pre>bitcoin-cli estimatefee 1</pre>
+
+                        <i>Estimates the approximate fee per kilobyte needed for a transaction to begin
+                        confirmation within X blocks.</i>
                     </div>
                 </div>
             </div>
@@ -119,6 +125,7 @@
     <div class="alert alert-info" role="alert">On 30 October 2015 bitcoin core version updated from 0.10.2 to 0.11.1</div>
     <div class="alert alert-info" role="alert">On 23 February 2016 bitcoin core version updated from 0.11.2 to 0.12</div>
     <div class="alert alert-info" role="alert">On 16 May 2016 bitcoin core version updated from 0.12 to 0.12.1</div>
+    <div class="alert alert-info" role="alert">On 10 November 2016 bitcoin core version updated from 0.13 to 0.13.1</div>
 
     <div id="total_div" style="width: 100%; height: 500px;"></div>
 

@@ -111,19 +111,19 @@ public class JsonData extends HttpServlet {
                     totalCArr.put(totalV1);*/
 
                     JSONObject totalV2 = new JSONObject();
-                    totalV2.put("v", estimatedFee.getEstimateFee2Block()>0 ?  estimatedFee.getEstimateFee2Block() : "" );
+                    totalV2.put("v", estimatedFee.getEstimateFee2Block()>0 ?  estimatedFee.getEstimateFee2Block()*1000 : "" );
                     totalCArr.put(totalV2);
 
                     JSONObject totalV3 = new JSONObject();
-                    totalV3.put("v", estimatedFee.getEstimateFee6Block()>0 ?  estimatedFee.getEstimateFee6Block() : "" );
+                    totalV3.put("v", estimatedFee.getEstimateFee6Block()>0 ?  estimatedFee.getEstimateFee6Block()*1000 : "" );
                     totalCArr.put(totalV3);
 
                     JSONObject totalV4 = new JSONObject();
-                    totalV4.put("v", estimatedFee.getEstimateFee12Block()>0 ?  estimatedFee.getEstimateFee12Block() : "" );
+                    totalV4.put("v", estimatedFee.getEstimateFee12Block()>0 ?  estimatedFee.getEstimateFee12Block()*1000 : "" );
                     totalCArr.put(totalV4);
 
                     JSONObject totalV5 = new JSONObject();
-                    totalV5.put("v", estimatedFee.getEstimateFee25Block()>0 ?  estimatedFee.getEstimateFee25Block() : "" );
+                    totalV5.put("v", estimatedFee.getEstimateFee25Block()>0 ?  estimatedFee.getEstimateFee25Block()*1000 : "" );
                     totalCArr.put(totalV5);
 
                     totalC.put("c", totalCArr);
@@ -228,23 +228,23 @@ public class JsonData extends HttpServlet {
                     totalCArr.put(totalV0);
 
                     JSONObject totalV1 = new JSONObject();
-                    totalV1.put("v", estimatedFeeDay.getEstimateFee1Block() );
+                    totalV1.put("v", estimatedFeeDay.getEstimateFee1Block()!=null && estimatedFeeDay.getEstimateFee1Block()>0 ? estimatedFeeDay.getEstimateFee1Block()*1000 : null);
                     totalCArr.put(totalV1);
 
                     JSONObject totalV2 = new JSONObject();
-                    totalV2.put("v", estimatedFeeDay.getEstimateFee2Block() );
+                    totalV2.put("v", estimatedFeeDay.getEstimateFee2Block()!=null && estimatedFeeDay.getEstimateFee2Block()>0 ? estimatedFeeDay.getEstimateFee2Block()*1000 : null);
                     totalCArr.put(totalV2);
 
                     JSONObject totalV3 = new JSONObject();
-                    totalV3.put("v", estimatedFeeDay.getEstimateFee6Block() );
+                    totalV3.put("v", estimatedFeeDay.getEstimateFee6Block()!=null && estimatedFeeDay.getEstimateFee6Block()>0 ? estimatedFeeDay.getEstimateFee6Block()*1000 : null);
                     totalCArr.put(totalV3);
 
                     JSONObject totalV4 = new JSONObject();
-                    totalV4.put("v", estimatedFeeDay.getEstimateFee12Block() );
+                    totalV4.put("v", estimatedFeeDay.getEstimateFee12Block()!=null && estimatedFeeDay.getEstimateFee12Block()>0 ? estimatedFeeDay.getEstimateFee12Block()*1000 : null);
                     totalCArr.put(totalV4);
 
                     JSONObject totalV5 = new JSONObject();
-                    totalV5.put("v", estimatedFeeDay.getEstimateFee25Block() );
+                    totalV5.put("v", estimatedFeeDay.getEstimateFee25Block()!=null && estimatedFeeDay.getEstimateFee25Block()>0 ? estimatedFeeDay.getEstimateFee25Block()*1000 : null);
                     totalCArr.put(totalV5);
 
                     totalC.put("c", totalCArr);
